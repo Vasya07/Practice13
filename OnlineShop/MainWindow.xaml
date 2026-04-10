@@ -1,0 +1,79 @@
+﻿<Window x:Class="OnlineShop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Online Shop" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка с навигацией -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Название магазина -->
+                <TextBlock Text="Онлайн Магазин" 
+                           Foreground="White" 
+                           FontSize="24" 
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+
+                <!-- Кнопки навигации -->
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center">
+                    <Button x:Name="ProductsButton" 
+                            Content="Товары" 
+                            Click="ProductsButton_Click"
+                            Margin="10,0"
+                            Padding="20,10"
+                            FontSize="16"/>
+
+                    <Button x:Name="CartButton" 
+                            Content="Корзина" 
+                            Click="CartButton_Click"
+                            Margin="10,0"
+                            Padding="20,10"
+                            FontSize="16"/>
+
+                    <Button x:Name="CheckoutButton" 
+                            Content="Оформление" 
+                            Click="CheckoutButton_Click"
+                            Margin="10,0"
+                            Padding="20,10"
+                            FontSize="16"/>
+                </StackPanel>
+
+                <!-- Информация о корзине -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock Foreground="White" FontSize="14" VerticalAlignment="Center">
+                        <TextBlock.Text>
+                            <Binding Path="CartItems.Count" StringFormat="Товаров: {0}" Mode="OneWay"/>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Foreground="White" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock.Text>
+                            <Binding Path="CartTotalPrice" StringFormat="Сумма: {0} руб." Mode="OneWay"/>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Основной контент - ContentControl для смены представлений -->
+        <ContentControl x:Name="MainContent" Grid.Row="1">
+            <!-- По умолчанию показываем товары -->
+            <ContentControl.Content>
+                <Frame Source="/Views/ProductsView.xaml"/>
+            </ContentControl.Content>
+        </ContentControl>
+    </Grid>
+</Window>
