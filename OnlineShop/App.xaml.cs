@@ -9,13 +9,9 @@ namespace OnlineShop
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            // Проверяем и создаем базу данных
             using (var context = new DatabaseContext())
             {
                 context.Database.CreateIfNotExists();
-
-                // Добавляем тестовые данные, если таблица пуста
                 if (!context.Products.Any())
                 {
                     context.Products.AddRange(new[]

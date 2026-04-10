@@ -52,19 +52,11 @@ namespace OnlineShop
         public MainWindow()
         {
             InitializeComponent();
-
-            // Инициализация коллекций
             InitializeProducts();
             CartItems = new ObservableCollection<CartItem>();
             CartTotalPrice = 0;
-
-            // Подписка на изменения в корзине
             CartItems.CollectionChanged += (s, e) => UpdateCartTotal();
-
-            // Загружаем ProductsView по умолчанию
             ShowProductsView();
-
-            // Установка DataContext
             DataContext = this;
         }
 
@@ -84,23 +76,18 @@ namespace OnlineShop
         {
             CartTotalPrice = CartItems.Sum(item => item.TotalPrice);
         }
-
-        // Метод для добавления товара в корзину
         public void AddToCart(Product product)
         {
             if (product == null) return;
 
-            // Проверяем, есть ли уже такой товар в корзине
             var existingItem = CartItems.FirstOrDefault(item => item.Product?.Id == product.Id);
 
             if (existingItem != null)
             {
-                // Увеличиваем количество
                 existingItem.Quantity++;
             }
             else
             {
-                // Добавляем новый товар
                 var newItem = new CartItem
                 {
                     Product = product,
@@ -109,8 +96,6 @@ namespace OnlineShop
                 CartItems.Add(newItem);
             }
         }
-
-        // Метод для удаления товара из корзины
         public void RemoveFromCart(CartItem item)
         {
             if (item != null && CartItems.Contains(item))
@@ -118,8 +103,6 @@ namespace OnlineShop
                 CartItems.Remove(item);
             }
         }
-
-        // Метод для оформления заказа
         public void PlaceOrder(string fullName, string email, string address)
         {
             if (string.IsNullOrWhiteSpace(fullName) ||
@@ -140,7 +123,6 @@ namespace OnlineShop
 
             try
             {
-                // Создаем заказ
                 var order = new Order
                 {
                     FullName = fullName,
@@ -149,8 +131,6 @@ namespace OnlineShop
                     OrderDate = DateTime.Now,
                     TotalAmount = CartTotalPrice
                 };
-
-                // Конвертируем CartItems в OrderItems
                 foreach (var cartItem in CartItems)
                 {
                     order.OrderItems.Add(new OrderItem
@@ -161,8 +141,6 @@ namespace OnlineShop
                         Price = cartItem.Product.Price
                     });
                 }
-
-                // Сохраняем заказ в базе данных
                 var dbHelper = new DatabaseHelper();
                 var orderId = dbHelper.SaveOrder(order);
 
@@ -172,10 +150,7 @@ namespace OnlineShop
                               $"Товаров: {CartItems.Sum(item => item.Quantity)} шт.",
                               "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Очищаем корзину после оформления
                 CartItems.Clear();
-
-                // Возвращаемся к товарам
                 ShowProductsView();
             }
             catch (Exception ex)
@@ -184,20 +159,16 @@ namespace OnlineShop
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        // Метод для показа страницы оформления заказа
         public void ShowCheckoutView()
         {
             var checkoutView = new CheckoutView();
             checkoutView.DataContext = this;
             MainContent.Content = checkoutView;
         }
-
-        // Навигационные методы
         private void ShowProductsView()
         {
             var productsView = new ProductsView();
-            productsView.DataContext = Products; // Передаем список продуктов
+            productsView.DataContext = Products;
             MainContent.Content = productsView;
         }
 

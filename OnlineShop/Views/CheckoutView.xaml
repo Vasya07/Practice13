@@ -10,12 +10,10 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Форма заказа -->
             <GroupBox Header="Данные для доставки" 
                       Grid.Row="0" 
                       Margin="0,0,0,20">
                 <StackPanel Margin="10">
-                    <!-- ФИО -->
                     <TextBlock Text="ФИО:" 
                                Margin="0,0,0,5"/>
                     <TextBox x:Name="txtFullName" 
@@ -23,7 +21,6 @@
                              Margin="0,0,0,10"
                              FontSize="14"/>
 
-                    <!-- Email -->
                     <TextBlock Text="Email:" 
                                Margin="0,0,0,5"/>
                     <TextBox x:Name="txtEmail" 
@@ -31,7 +28,6 @@
                              Margin="0,0,0,10"
                              FontSize="14"/>
 
-                    <!-- Адрес -->
                     <TextBlock Text="Адрес доставки:" 
                                Margin="0,0,0,5"/>
                     <TextBox x:Name="txtAddress" 
@@ -43,7 +39,6 @@
                 </StackPanel>
             </GroupBox>
 
-            <!-- Товары в заказе -->
             <GroupBox Header="Состав заказа" 
                       Grid.Row="1" 
                       Margin="0,0,0,20">
@@ -78,7 +73,6 @@
                 </ListView>
             </GroupBox>
 
-            <!-- Кнопка оформления -->
             <Border Grid.Row="2" 
                     Background="#F8F9FA" 
                     Padding="20">

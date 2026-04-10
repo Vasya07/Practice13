@@ -21,21 +21,13 @@ namespace OnlineShop.Data
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
-                // Создаем базу данных если ее нет
                 var createDbCommand = new SqlCommand(
                     @"IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = 'OnlineShopDB')
                       CREATE DATABASE OnlineShopDB",
                     connection);
                 createDbCommand.ExecuteNonQuery();
-
-                // Переключаемся на созданную базу
                 connection.ChangeDatabase("OnlineShopDB");
-
-                // Создаем таблицы
                 CreateTables(connection);
-
-                // Добавляем тестовые данные
                 SeedTestData(connection);
             }
         }
@@ -90,7 +82,6 @@ namespace OnlineShop.Data
 
         private void SeedTestData(SqlConnection connection)
         {
-            // Проверяем, есть ли уже данные
             using (var checkCommand = new SqlCommand("SELECT COUNT(*) FROM Products", connection))
             {
                 var count = (int)checkCommand.ExecuteScalar();
@@ -124,7 +115,6 @@ namespace OnlineShop.Data
             }
         }
 
-        // Методы для работы с продуктами
         public List<Product> GetProducts()
         {
             var products = new List<Product>();
@@ -184,7 +174,6 @@ namespace OnlineShop.Data
             return null;
         }
 
-        // Методы для работы с заказами
         public int SaveOrder(Order order)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -196,7 +185,6 @@ namespace OnlineShop.Data
                 {
                     try
                     {
-                        // Сохраняем заказ
                         var orderCommand = new SqlCommand(
                             @"INSERT INTO Orders (FullName, Email, DeliveryAddress, OrderDate, TotalAmount) 
                               VALUES (@FullName, @Email, @DeliveryAddress, @OrderDate, @TotalAmount);
@@ -211,7 +199,6 @@ namespace OnlineShop.Data
 
                         var orderId = Convert.ToInt32(orderCommand.ExecuteScalar());
 
-                        // Сохраняем элементы заказа
                         foreach (var item in order.OrderItems)
                         {
                             var itemCommand = new SqlCommand(
@@ -277,7 +264,6 @@ namespace OnlineShop.Data
                             orders.Add(currentOrder);
                         }
 
-                        // Добавляем элемент заказа, если он есть
                         if (!reader.IsDBNull(reader.GetOrdinal("ProductId")))
                         {
                             currentOrder.OrderItems.Add(new OrderItem
@@ -292,7 +278,6 @@ namespace OnlineShop.Data
                     }
                 }
             }
-
             return orders;
         }
     }

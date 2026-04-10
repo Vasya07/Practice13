@@ -19,14 +19,12 @@
                                 Background="White"
                                 CornerRadius="5">
                             <StackPanel>
-                                <!-- Изображение товара -->
                                 <Border Height="180" 
                                         Background="#F8F9FA">
                                     <Image Source="{Binding ImageUrl}" 
                                            Stretch="Uniform"/>
                                 </Border>
 
-                                <!-- Информация о товаре -->
                                 <StackPanel Margin="15" Height="150">
                                     <TextBlock Text="{Binding Name}" 
                                                FontWeight="Bold" 
@@ -44,7 +42,6 @@
                                     </TextBlock>
                                 </StackPanel>
 
-                                <!-- Кнопка добавления -->
                                 <Button Content="Добавить в корзину" 
                                         Tag="{Binding}"
                                         Click="AddToCart_Click"

@@ -8,7 +8,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Список товаров -->
         <ListView ItemsSource="{Binding CartItems}"
                   ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.ItemTemplate>
@@ -28,13 +27,11 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- Изображение -->
                             <Image Source="{Binding Product.ImageUrl}" 
                                    Width="60" 
                                    Height="60" 
                                    Stretch="UniformToFill"/>
 
-                            <!-- Информация -->
                             <StackPanel Grid.Column="1" Margin="10,0">
                                 <TextBlock Text="{Binding Product.Name}" 
                                            FontWeight="Bold"/>
@@ -44,7 +41,6 @@
                                 </TextBlock>
                             </StackPanel>
 
-                            <!-- Количество -->
                             <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Quantity}" 
                                            FontSize="16"
@@ -54,7 +50,6 @@
                                            HorizontalAlignment="Center"/>
                             </StackPanel>
 
-                            <!-- Сумма -->
                             <TextBlock Grid.Column="3" 
                                        FontWeight="Bold"
                                        FontSize="16"
@@ -64,7 +59,6 @@
                                 <Run Text=" руб."/>
                             </TextBlock>
 
-                            <!-- Удалить -->
                             <Button Grid.Column="4" 
                                     Content="Удалить всё" 
                                     Tag="{Binding}"
@@ -93,7 +87,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Итог и кнопка -->
         <Border Grid.Row="1" 
                 Background="#F8F9FA" 
                 Padding="20">

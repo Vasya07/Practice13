@@ -10,7 +10,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Шапка с навигацией -->
         <Border Grid.Row="0" Background="#2C3E50" Padding="10">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -19,14 +18,12 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Название магазина -->
                 <TextBlock Text="Онлайн Магазин" 
                            Foreground="White" 
                            FontSize="24" 
                            FontWeight="Bold"
                            VerticalAlignment="Center"/>
 
-                <!-- Кнопки навигации -->
                 <StackPanel Grid.Column="1" 
                             Orientation="Horizontal" 
                             HorizontalAlignment="Center">
@@ -52,7 +49,6 @@
                             FontSize="16"/>
                 </StackPanel>
 
-                <!-- Информация о корзине -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
                     <TextBlock Foreground="White" FontSize="14" VerticalAlignment="Center">
                         <TextBlock.Text>
@@ -68,9 +64,7 @@
             </Grid>
         </Border>
 
-        <!-- Основной контент - ContentControl для смены представлений -->
         <ContentControl x:Name="MainContent" Grid.Row="1">
-            <!-- По умолчанию показываем товары -->
             <ContentControl.Content>
                 <Frame Source="/Views/ProductsView.xaml"/>
             </ContentControl.Content>
